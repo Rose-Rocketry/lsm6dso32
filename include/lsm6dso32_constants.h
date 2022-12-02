@@ -10,6 +10,8 @@ typedef enum {
     LSM_I2C_HI              = 0x6B
 } lsm6_i2c_addr;
 
+#define LSM_WHOAMI_ID       0x6C
+
 typedef enum {
     LSM_FUNC_CFG_ACCESS     = 0x01,
     LSM_PIN_CTRL            = 0x02,
@@ -93,13 +95,73 @@ typedef enum {
 } lsm6_reg_addr;
 
 typedef enum {
-    LSM_BIT_FUNC_CFG_ACCESS = (1 << 7),
-    LSM_BIT_SHUB_REG_ACCESS = (1 << 6)
-} lsm6_func_cfg_access_bit;
+    LSM_FUNC_CFG_ACCESS_EN  = (1 << 7),
+    LSM_SHUB_REG_ACCESS_EN  = (1 << 6)
+} lsm6_func_cfg_access;
 
 typedef enum {
     LSM_SDO_PU_EN           = 0b01111111,
     LSB_SDO_PU_DIS          = 0b00111111
 } lsm6_pin_ctrl;
+
+typedef enum {
+    LSM_STOP_ON_WTM         = (1 << 7),
+    LSM_FIFO_COMPR_RT_EN    = (1 << 6),
+    LSM_ODRCHG_EN           = (1 << 4),
+    
+    LSM_UNCOPTR_RATE_NONE   = (0b00 << 1),
+    LSM_UNCOPTR_RATE_8      = (0b01 << 1),
+    LSM_UNCOPTR_RATE_16     = (0b10 << 1),
+    LSM_UNCOPTR_RATE_32     = (0b11 << 1),
+
+    LSM_WTM8                = (1 << 0)
+} lsm6_fifo_ctrl2;
+
+typedef enum {
+    LSM_BDR_GY_NONE         = (0b0000 << 4),
+    LSM_BDR_GY_12_5         = (0b0001 << 4),
+    LSM_BDR_GY_26           = (0b0010 << 4),
+    LSM_BDR_GY_52           = (0b0011 << 4),
+    LSM_BDR_GY_104          = (0b0100 << 4),
+    LSM_BDR_GY_208          = (0b0101 << 4),
+    LSM_BDR_GY_417          = (0b0110 << 4),
+    LSM_BDR_GY_833          = (0b0111 << 4),
+    LSM_BDR_GY_1667         = (0b1000 << 4),
+    LSM_BDR_GY_3333         = (0b1001 << 4),
+    LSM_BDR_GY_6667         = (0b1010 << 4),
+    LSM_BDR_GY_6_5          = (0b1011 << 4),
+
+    LSM_BDR_XL_NONE         = 0b0000,
+    LSM_BDR_XL_12_5         = 0b0001,
+    LSM_BDR_XL_26           = 0b0010,
+    LSM_BDR_XL_52           = 0b0011,
+    LSM_BDR_XL_104          = 0b0100,
+    LSM_BDR_XL_208          = 0b0101,
+    LSM_BDR_XL_417          = 0b0110,
+    LSM_BDR_XL_833          = 0b0111,
+    LSM_BDR_XL_1667         = 0b1000,
+    LSM_BDR_XL_3333         = 0b1001,
+    LSM_BDR_XL_6667         = 0b1010,
+    LSM_BDR_XL_1_6          = 0b1011
+} lsm6_fifo_ctrl3;
+
+typedef enum {
+    LSM_DEC_TS_BATCH_NONE   = (0b00 << 6),
+    LSM_DEC_TS_BATCH_1      = (0b01 << 6),
+    LSM_DEC_TS_BATCH_8      = (0b10 << 6),
+    LSM_DEC_TS_BATCH_32     = (0b11 << 6),
+
+    LSM_ODR_T_BATCH_NONE    = (0b00 << 4),
+    LSM_ODR_T_BATCH_1_6     = (0b01 << 4),
+    LSM_ODR_T_BATCH_12_5    = (0b01 << 4),
+    LSM_ODR_T_BATCH_52      = (0b01 << 4),
+
+    LSM_FIFO_MODE_BYPASS            = 0b000,
+    LSM_FIFO_MODE_STOP_WHEN_FULL    = 0b001,
+    LSM_FIFO_MODE_CONT_TO_FIFO      = 0b011,
+    LSM_FIFO_MODE_BYPASS_TO_CONT    = 0b100,
+    LSM_FIFO_MODE_CONTINUOUS        = 0b110,
+    LSM_FIFO_MODE_BYPASS_TO_FIFO    = 0b111
+} lsm6_fifo_ctrl4;
 
 #endif // LSM6DSO32_CONSTANTS_H
