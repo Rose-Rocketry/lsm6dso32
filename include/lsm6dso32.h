@@ -19,7 +19,6 @@ class LSM6DSO32 {
       Initializes sensor on bus `i2c` with I2C address `address`; if sensor detected, return true, otherwise return false
     */
     bool begin(TwoWire* i2c, i2c_addr_t address);
-    bool test();
     
   private:
     i2c_addr_t address;
