@@ -42,9 +42,11 @@ unsigned char LSM6DSO32::getWhoAmI() {
 }
 
 bool LSM6DSO32::writeRegister(unsigned char value, lsm6_reg_addr regaddr) {
+    bool success;
     i2cptr->beginTransmission(address);
-    i2cptr->write(regaddr);
-    i2cptr->write(value);
-    i2cptr->endTransmission();
-    return true;
+    success = success && i2cptr->write(regaddr);
+    success = success && i2cptr->write(value);
+    success = (i2cptr->endTransmission() != 0) && success; // Don't short circuit here
+    // TODO: What happens when this function goes wrong is sorta sketchy, will deal with it when we get there
+    return success;
 }
