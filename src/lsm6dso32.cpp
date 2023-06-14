@@ -20,3 +20,31 @@ bool LSM6DSO32::begin(TwoWire* i2c, i2c_addr_t addr) {
     }
     return true;
 }
+
+
+// private functions
+
+bool LSM6DSO32::readRegisters(unsigned char *buffer, lsm6_reg_addr start, size_t nbytes) {
+    if(!i2cptr || address == NO_ADDRESS) {
+        return false;
+    }
+    if(i2cptr->requestFrom(address, nbytes, start, 1, 1) != nbytes) return false;
+    while(i2cptr->available() < nbytes);
+    return (nbytes == i2cptr->readBytes(buffer, nbytes));
+}
+
+unsigned char LSM6DSO32::getWhoAmI() {
+    unsigned char who = -1;
+    if(!readRegisters(&who, LSM_WHO_AM_I, 1)) {
+        return -1;
+    }
+    return who;
+}
+
+bool LSM6DSO32::writeRegister(unsigned char value, lsm6_reg_addr regaddr) {
+    i2cptr->beginTransmission(address);
+    i2cptr->write(regaddr);
+    i2cptr->write(value);
+    i2cptr->endTransmission();
+    return true;
+}
