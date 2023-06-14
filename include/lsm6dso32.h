@@ -5,6 +5,8 @@
 #include <ctype.h>
 #include <Wire.h>
 
+#include "VectorMath.h"
+
 typedef int8_t i2c_addr_t;
 #define NO_ADDRESS -1
 
