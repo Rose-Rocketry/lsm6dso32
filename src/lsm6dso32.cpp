@@ -37,8 +37,30 @@ bool LSM6DSO32::startAccel(lsm6_accel_range range, lsm6_srate rate, bool lpf2) {
     return true;
 }
 
+bool LSM6DSO32::startGyro(lsm6_gyro_range range, lsm6_srate rate) {
+    if(rate == LSM_SRATE_1_6) { return false; }
+    unsigned char mode = range | rate;
+    if(!writeRegister(mode, LSM_CTRL2_G)) {
+        return false;
+    }
+    float range_ds;
+    switch(range) {
+        case LSM_RANGE_125DS: range_ds = 125; break;
+        case LSM_RANGE_250DS: range_ds = 250; break;
+        case LSM_RANGE_500DS: range_ds = 500; break;
+        case LSM_RANGE_1000DS: range_ds = 1000; break;
+        case LSM_RANGE_2000DS: range_ds = 2000; break;
+    }
+    lsb_g = (range_ds * LSM_DEGTORAD) / LSM_MAXVAL;
+    return true;
+}
+
 VectorF LSM6DSO32::getAccel() {
     return readVector(LSM_OUTX_L_A, lsb_xl);
+}
+
+VectorF LSM6DSO32::getGyro() {
+    return readVector(LSM_OUTX_L_G, lsb_g);
 }
 
 

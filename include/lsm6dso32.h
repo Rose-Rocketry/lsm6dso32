@@ -18,6 +18,14 @@ typedef enum {
 } lsm6_accel_range;
 
 typedef enum {
+  LSM_RANGE_125DS = LSM_FS_G_125,
+  LSM_RANGE_250DS = LSM_FS_G_250,
+  LSM_RANGE_500DS = LSM_FS_G_500,
+  LSM_RANGE_1000DS = LSM_FS_G_1000,
+  LSM_RANGE_2000DS = LSM_FS_G_2000
+} lsm6_gyro_range;
+
+typedef enum {
   LSM_SRATE_1_6 = LSM_ODR_XL_1_6_HM1,
   LSM_SRATE_12_5 = LSM_ODR_XL_12_5,
   LSM_SRATE_26 = LSM_ODR_XL_26,
@@ -33,18 +41,14 @@ typedef enum {
 
 class LSM6DSO32 {
   public:
-    /*
-      Constructor
-    */
     LSM6DSO32();
-    /*
-      begin(i2c addr)
-      Initializes sensor on bus `i2c` with I2C address `address`; if sensor detected, return true, otherwise return false
-    */
+    
     bool begin(TwoWire* i2c, i2c_addr_t address);
 
     bool startAccel(lsm6_accel_range range, lsm6_srate rate, bool lpf2);
+    bool startGyro(lsm6_gyro_range range, lsm6_srate rate);
     VectorF getAccel();
+    VectorF getGyro();
 
   private:
     i2c_addr_t address;
@@ -55,7 +59,7 @@ class LSM6DSO32 {
 
     unsigned char readWhoAmI();
 
-    float lsb_xl; // Value of LSB in SI units
+    float lsb_xl, lsb_g; // Value of LSB in SI units
 
     VectorF readVector(lsm6_reg_addr addr, float lsb);
 };

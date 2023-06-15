@@ -6,6 +6,7 @@
 #define LSM6DSO32_CONSTANTS_H
 
 #define LSM_GRAV            9.80665
+#define LSM_DEGTORAD        (PI / 180)
 #define LSM_MAXVAL          ((float) (1 << 15))
 
 typedef enum {
