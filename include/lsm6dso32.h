@@ -10,6 +10,27 @@
 typedef int8_t i2c_addr_t;
 #define NO_ADDRESS -1
 
+typedef enum {
+  LSM_RANGE_4G = LSM_FS_XL_4G,
+  LSM_RANGE_8G = LSM_FS_XL_8G,
+  LSM_RANGE_16G = LSM_FS_XL_16G,
+  LSM_RANGE_32G = LSM_FS_XL_32G
+} lsm6_accel_range;
+
+typedef enum {
+  LSM_SRATE_1_6 = LSM_ODR_XL_1_6_HM1,
+  LSM_SRATE_12_5 = LSM_ODR_XL_12_5,
+  LSM_SRATE_26 = LSM_ODR_XL_26,
+  LSM_SRATE_52 = LSM_ODR_XL_52,
+  LSM_SRATE_104 = LSM_ODR_XL_104,
+  LSM_SRATE_208 = LSM_ODR_XL_208,
+  LSM_SRATE_416 = LSM_ODR_XL_416,
+  LSM_SRATE_833 = LSM_ODR_XL_833,
+  LSM_SRATE_1666 = LSM_ODR_XL_1666,
+  LSM_SRATE_3332 = LSM_ODR_XL_3332,
+  LSM_SRATE_6664 = LSM_ODR_XL_6664
+} lsm6_srate;
+
 class LSM6DSO32 {
   public:
     /*
@@ -21,7 +42,10 @@ class LSM6DSO32 {
       Initializes sensor on bus `i2c` with I2C address `address`; if sensor detected, return true, otherwise return false
     */
     bool begin(TwoWire* i2c, i2c_addr_t address);
-    
+
+    bool startAccel(lsm6_accel_range range, lsm6_srate rate, bool lpf2);
+    VectorF getAccel();
+
   private:
     i2c_addr_t address;
     TwoWire* i2cptr;
@@ -29,7 +53,11 @@ class LSM6DSO32 {
     bool readRegisters(unsigned char *buffer, lsm6_reg_addr start, size_t nbytes);
     bool writeRegister(unsigned char value, lsm6_reg_addr regaddr);
 
-    unsigned char getWhoAmI();
+    unsigned char readWhoAmI();
+
+    float lsb_xl; // Value of LSB in SI units
+
+    VectorF readVector(lsm6_reg_addr addr, float lsb);
 };
 
 #endif

@@ -5,6 +5,9 @@
 #ifndef LSM6DSO32_CONSTANTS_H
 #define LSM6DSO32_CONSTANTS_H
 
+#define LSM_GRAV            9.80665
+#define LSM_MAXVAL          ((float) (1 << 15))
+
 typedef enum {
     LSM_I2C_LO              = 0x6A,
     LSM_I2C_HI              = 0x6B
@@ -165,92 +168,91 @@ typedef enum {
 } lsm6_fifo_ctrl4;
 
 typedef enum {
-    LSM_DATAREADY_PAUSED            = 1 << 7,
-    LSM_RST_COUNTER_BDR             = 1 << 6,
-    LSM_TRIG_COUNTER_BDR            = 1 << 5,
+    LSM_DATAREADY_PAUSED            = (1 << 7),
+    LSM_RST_COUNTER_BDR             = (1 << 6),
+    LSM_TRIG_COUNTER_BDR            = (1 << 5),
     LSM_CNT_BDR_TH_3MSB             = 0b111
 } lsm6_counter_bdr_reg1;
 
 typedef enum {
-    LSM_DEN_DRDY_FLAG               = 1 << 7,
-    LSM_INT1_CNT_BDR                = 1 << 6,
-    LSM_INT1_FIFO_FULL              = 1 << 5,
-    LSM_INT1_FIFO_OVR               = 1 << 4,
-    LSM_INT1_FIFO_TH                = 1 << 3,
-    LSM_INT1_BOOT                   = 1 << 2,
-    LSM_INT1_DRDY_G                 = 1 << 1,
-    LSM_INT1_DRDY_XL                = 1 << 0
-} lsm_int1_ctrl;
+    LSM_DEN_DRDY_FLAG               = (1 << 7),
+    LSM_INT1_CNT_BDR                = (1 << 6),
+    LSM_INT1_FIFO_FULL              = (1 << 5),
+    LSM_INT1_FIFO_OVR               = (1 << 4),
+    LSM_INT1_FIFO_TH                = (1 << 3),
+    LSM_INT1_BOOT                   = (1 << 2),
+    LSM_INT1_DRDY_G                 = (1 << 1),
+    LSM_INT1_DRDY_XL                = (1 << 0)
+} lsm6_int1_ctrl;
 
 typedef enum {
-    LSM_INT2_CNT_BDR                = 1 << 6,
-    LSM_INT2_FIFO_FULL              = 1 << 5,
-    LSM_INT2_FIFO_OVR               = 1 << 4,
-    LSM_INT2_FIFO_TH                = 1 << 3,
-    LSM_INT2_DRDY_TEMP              = 1 << 2,
-    LSM_INT2_DRDY_G                 = 1 << 1,
-    LSM_INT2_DRDY_XL                = 1 << 0
-} lsm_int2_ctrl;
+    LSM_INT2_CNT_BDR                = (1 << 6),
+    LSM_INT2_FIFO_FULL              = (1 << 5),
+    LSM_INT2_FIFO_OVR               = (1 << 4),
+    LSM_INT2_FIFO_TH                = (1 << 3),
+    LSM_INT2_DRDY_TEMP              = (1 << 2),
+    LSM_INT2_DRDY_G                 = (1 << 1),
+    LSM_INT2_DRDY_XL                = (1 << 0)
+} lsm6_int2_ctrl;
 
 typedef enum {
-    LSM_ODR_XL_POWERDOWN            = 0b0000 << 4,
-    LSM_ODR_XL_1_6_HM1              = 0b1011 << 4,
-    LSM_ODR_XL_12_5                 = 0b0001 << 4,
-    LSM_ODR_XL_26                   = 0b0010 << 4,
-    LSM_ODR_XL_52                   = 0b0011 << 4,
-    LSM_ODR_XL_104                  = 0b0100 << 4,
-    LSM_ODR_XL_208                  = 0b0101 << 4,
-    LSM_ODR_XL_416                  = 0b0110 << 4,
-    LSM_ODR_XL_833                  = 0b0111 << 4,
-    LSM_ODR_XL_1_66K                = 0b1000 << 4,
-    LSM_ODR_XL_3_33K                = 0b1001 << 4,
-    LSM_ODR_XL_6_66K                = 0b1010 << 4,
+    LSM_ODR_XL_POWERDOWN            = (0b0000 << 4),
+    LSM_ODR_XL_1_6_HM1              = (0b1011 << 4),
+    LSM_ODR_XL_12_5                 = (0b0001 << 4),
+    LSM_ODR_XL_26                   = (0b0010 << 4),
+    LSM_ODR_XL_52                   = (0b0011 << 4),
+    LSM_ODR_XL_104                  = (0b0100 << 4),
+    LSM_ODR_XL_208                  = (0b0101 << 4),
+    LSM_ODR_XL_416                  = (0b0110 << 4),
+    LSM_ODR_XL_833                  = (0b0111 << 4),
+    LSM_ODR_XL_1666                 = (0b1000 << 4),
+    LSM_ODR_XL_3332                 = (0b1001 << 4),
+    LSM_ODR_XL_6664                 = (0b1010 << 4),
 
-    LSM_FS_XL_4G                    = 0b00 << 2,
-    LSM_FS_XL_32G                   = 0b01 << 2,
-    LSM_FS_XL_8G                    = 0b10 << 2,
-    LSM_FS_XL_16G                   = 0b11 << 2,
+    LSM_FS_XL_4G                    = (0b00 << 2),
+    LSM_FS_XL_32G                   = (0b01 << 2),
+    LSM_FS_XL_8G                    = (0b10 << 2),
+    LSM_FS_XL_16G                   = (0b11 << 2),
 
-    LSM_LPF2_XL_EN                  = 0b1 << 1
-} lsm_ctrl1_xl;
-
-typedef enum {
-    LSM_ODR_G_POWERDOWN             = 0b0000 << 4,
-    LSM_ODR_G_12_5                  = 0b0001 << 4,
-    LSM_ODR_G_26                    = 0b0010 << 4,
-    LSM_ODR_G_52                    = 0b0011 << 4,
-    LSM_ODR_G_104                   = 0b0100 << 4,
-    LSM_ODR_G_208                   = 0b0101 << 4,
-    LSM_ODR_G_416                   = 0b0110 << 4,
-    LSM_ODR_G_833                   = 0b0111 << 4,
-    LSM_ODR_G_1_66K                 = 0b1000 << 4,
-    LSM_ODR_G_3_33K                 = 0b1001 << 4,
-    LSM_ODR_G_6_66K                 = 0b1010 << 4,
-
-    LSM_FS_G_125                    = 0b001 << 1,
-    LSM_FS_G_250                    = 0b000 << 1,
-    LSM_FS_G_500                    = 0b010 << 1,
-    LSM_FS_G_1000                   = 0b100 << 1,
-    LSM_FS_G_2000                   = 0b110 << 1
-} lsm_ctrl2_g;
+    LSM_LPF2_XL_EN                  = (0b1 << 1)
+} lsm6_ctrl1_xl;
 
 typedef enum {
-    LSM_XL_ULP_EN                   = 1 << 7,
+    LSM_ODR_G_POWERDOWN             = (0b0000 << 4),
+    LSM_ODR_G_12_5                  = (0b0001 << 4),
+    LSM_ODR_G_26                    = (0b0010 << 4),
+    LSM_ODR_G_52                    = (0b0011 << 4),
+    LSM_ODR_G_104                   = (0b0100 << 4),
+    LSM_ODR_G_208                   = (0b0101 << 4),
+    LSM_ODR_G_416                   = (0b0110 << 4),
+    LSM_ODR_G_833                   = (0b0111 << 4),
+    LSM_ODR_G_1666                  = (0b1000 << 4),
+    LSM_ODR_G_3332                  = (0b1001 << 4),
+    LSM_ODR_G_6664                  = (0b1010 << 4),
 
-    LSM_ROUNDING_NONE               = 0b00 << 5,
-    LSM_ROUNDING_ACCEL              = 0b01 << 5,
-    LSM_ROUNDING_GYRO               = 0b10 << 5,
-    LSM_ROUNDING_BOTH               = 0b11 << 5,
+    LSM_FS_G_125                    = (0b001 << 1),
+    LSM_FS_G_250                    = (0b000 << 1),
+    LSM_FS_G_500                    = (0b010 << 1),
+    LSM_FS_G_1000                   = (0b100 << 1),
+    LSM_FS_G_2000                   = (0b110 << 1)
+} lsm6_ctrl2_g;
 
-    LSM_ST_G_NORMAL                 = 0b00 << 2,
-    LSM_ST_G_POSITIVE               = 0b01 << 2,
-    LSM_ST_G_NEGATIVE               = 0b11 << 2,
+typedef enum {
+    LSM_XL_ULP_EN                   = (1 << 7),
 
-    
-    LSM_ST_XL_NORMAL                = 0b00 << 0,
-    LSM_ST_XL_POSITIVE              = 0b01 << 0,
-    LSM_ST_XL_NEGATIVE              = 0b10 << 0
-} lsm_ctrl5_c;
+    LSM_ROUNDING_NONE               = (0b00 << 5),
+    LSM_ROUNDING_ACCEL              = (0b01 << 5),
+    LSM_ROUNDING_GYRO               = (0b10 << 5),
+    LSM_ROUNDING_BOTH               = (0b11 << 5),
+
+    LSM_ST_G_NORMAL                 = (0b00 << 2),
+    LSM_ST_G_POSITIVE               = (0b01 << 2),
+    LSM_ST_G_NEGATIVE               = (0b11 << 2),
+
+    LSM_ST_XL_NORMAL                = (0b00 << 0),
+    LSM_ST_XL_POSITIVE              = (0b01 << 0),
+    LSM_ST_XL_NEGATIVE              = (0b10 << 0)
+} lsm6_ctrl5_c;
     // LSM_CTRL3_C             = 0x12,
     // LSM_CTRL4_C             = 0x13,
     // LSM_CTRL6_C             = 0x15,
