@@ -1,3 +1,12 @@
+/**
+ * Rose Rocketry LSM6DSO32 Library - Raw Data example
+ * 
+ * Reads raw data directly from the LSM6DSO32 sensor, without interrupts or buffering.
+ * 
+ * NOTE: On PlatformIO and some other compilers, the printf/scanf %f flag is disabled by default to save memory. On
+ * those platforms, the compiler flags _printf_float and _scanf_float are required for this code to output correctly.
+*/
+
 #include <Arduino.h>
 #include <lsm6dso32.h>
 
