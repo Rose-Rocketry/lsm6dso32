@@ -239,6 +239,24 @@ typedef enum {
 } lsm6_ctrl2_g;
 
 typedef enum {
+    LSM_BOOT                        = (1 << 7),
+    LSM_BDU                         = (1 << 6),
+    LSM_H_LACTIVE                   = (1 << 5),
+    LSM_PP_OD                       = (1 << 4),
+    LSM_SIM                         = (1 << 3),
+    LSM_IF_INC                      = (1 << 2),
+    LSM_BOOT                        = (1 << 0)
+} lsm6_ctrl3_c;
+
+typedef enum {
+    LSM_SLEEP_G                     = (1 << 6),
+    LSM_INT2_ON_INT1                = (1 << 5),
+    LSM_DRDY_MASK                   = (1 << 3),
+    LSM_I2C_DISABLE                 = (1 << 2),
+    LSM_LPF1_SEL_G                  = (1 << 1)
+} lsm6_ctrl4_c;
+
+typedef enum {
     LSM_XL_ULP_EN                   = (1 << 7),
 
     LSM_ROUNDING_NONE               = (0b00 << 5),
@@ -254,10 +272,32 @@ typedef enum {
     LSM_ST_XL_POSITIVE              = (0b01 << 0),
     LSM_ST_XL_NEGATIVE              = (0b10 << 0)
 } lsm6_ctrl5_c;
-    // LSM_CTRL3_C             = 0x12,
-    // LSM_CTRL4_C             = 0x13,
-    // LSM_CTRL6_C             = 0x15,
-    // LSM_CTRL7_G             = 0x16,
+
+typedef enum {
+    LSM_DEN_EDGE                    = (0b100 << 5),
+    LSM_DEN_LEVEL                   = (0b010 << 5),
+    LSM_DEN_LATCHED                 = (0b011 << 5),
+    LSM_DEN_FIFO                    = (0b110 << 5),
+
+    LSM_XL_HM_MODE                  = (1 << 4),
+    LSM_USR_OFF_W                   = (1 << 3),
+
+    // See Table 60 in the datasheet
+    LSM_FTYPE_MASK                  = 0b111
+} lsm6_ctrl6_c;
+
+typedef enum {
+    LSM_G_HM_MODE                   = (1 << 7),
+    LSM_HP_EN_G                     = (1 << 6),
+
+    LSM_HPM_G_0_016                 = (0b00 << 4),
+    LSM_HPM_G_0_065                 = (0b01 << 4),
+    LSM_HPM_G_0_260                 = (0b10 << 4),
+    LSM_HPM_G_1_05                  = (0b11 << 4),
+} lsm6_ctrl7_g;
+
+
+
     // LSM_CTRL8_XL            = 0x17,
     // LSM_CTRL9_XL            = 0x18,
     // LSM_CTRL10_XL           = 0x19,
