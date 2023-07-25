@@ -5,6 +5,11 @@
  * 
  * NOTE: On PlatformIO and some other compilers, the printf/scanf %f flag is disabled by default to save memory. On
  * those platforms, the compiler flags _printf_float and _scanf_float are required for this code to output correctly.
+ * 
+ * Schematic:
+ * STM32F411CEU6       LSM6DSO32
+ * PB7 <=============> SDA
+ * PB6 <=============> SCL
 */
 
 #include <Arduino.h>
