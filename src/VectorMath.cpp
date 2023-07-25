@@ -82,6 +82,20 @@ QuatF::QuatF(const VectorF& lv) {
 }
 QuatF::QuatF() {}
 
+QuatF QuatF::fromAngleAxis(const VectorF& aa) {
+	float theta = aa.mag();
+	if(theta > 0) {
+		return QuatF(
+			cos(theta/2),
+			aa.x/theta * sin(theta/2),
+			aa.y/theta * sin(theta/2),
+			aa.z/theta * sin(theta/2) // surely the compiler memoizes this?
+		);
+	} else {
+		return QuatF(1, 0, 0, 0);
+	}
+}
+
 // size_t QuatF::printTo(Print& to) const {
 	// return to.print("[")+to.print(w)+to.print(" ")
 						// +to.print(x)+to.print(" ")

@@ -55,6 +55,18 @@ bool LSM6DSO32::startGyro(lsm6_gyro_range range, lsm6_srate rate) {
     return true;
 }
 
+bool LSM6DSO32::startTimestamp() {
+    return writeRegister(LSM_TIMESTAMP_EN, LSM_CTRL10_C);    
+}
+
+
+bool LSM6DSO32::setInt1(lsm6_int1_ctrl mode) {
+    return writeRegister(mode, LSM_INT1_CTRL);
+}
+bool LSM6DSO32::setInt2(lsm6_int2_ctrl mode) {
+    return writeRegister(mode, LSM_INT2_CTRL);
+}
+
 VectorF LSM6DSO32::getAccel() {
     return readVector(LSM_OUTX_L_A, lsb_xl);
 }
@@ -63,6 +75,23 @@ VectorF LSM6DSO32::getGyro() {
     return readVector(LSM_OUTX_L_G, lsb_g);
 }
 
+uint32_t LSM6DSO32::getTimestamp() {
+    uint32_t x;
+    if(!readRegisters((unsigned char*) &x, LSM_TIMESTAMP0, sizeof(float))) {
+        return -1;
+    } else {    
+        return x;
+    }
+}
+
+bool setAccelCalib(VectorF zeroMeas) {
+    float limit = max({zeroMeas.x, zeroMeas.y, zeroMeas.z});
+}
+
+bool setGyroCalib(VectorF zeroMeas) {
+    float limit = max({zeroMeas.x, zeroMeas.y, zeroMeas.z});
+
+}
 
 // private functions
 
@@ -76,11 +105,12 @@ bool LSM6DSO32::readRegisters(unsigned char *buffer, lsm6_reg_addr start, size_t
 }
 
 unsigned char LSM6DSO32::readWhoAmI() {
-    unsigned char who = -1;
+    unsigned char who;
     if(!readRegisters(&who, LSM_WHO_AM_I, 1)) {
         return -1;
+    } else {
+        return who;
     }
-    return who;
 }
 
 bool LSM6DSO32::writeRegister(unsigned char value, lsm6_reg_addr regaddr) {

@@ -7,12 +7,19 @@
 
 #define LSM_GRAV            9.80665
 #define LSM_DEGTORAD        (PI / 180)
+#define LSM_MICROS          25
+#define LSM_SECONDS         (LSM_MICROS * 1e-6)
 #define LSM_MAXVAL          ((float) (1 << 15))
 
 typedef enum {
     LSM_I2C_LO              = 0x6A,
     LSM_I2C_HI              = 0x6B
 } lsm6_i2c_addr;
+
+typedef enum {
+    LSM_INT1,
+    LSM_INT2
+} lsm6_interrupt_pin;
 
 #define LSM_WHOAMI_ID       0x6C
 
@@ -37,7 +44,7 @@ typedef enum {
     LSM_CTRL7_G             = 0x16,
     LSM_CTRL8_XL            = 0x17,
     LSM_CTRL9_XL            = 0x18,
-    LSM_CTRL10_XL           = 0x19,
+    LSM_CTRL10_C            = 0x19,
     LSM_ALL_INT_SRC         = 0x1A,
     LSM_TAP_SRC             = 0x1B,
     LSM_D6D_SRC             = 0x1D,
@@ -245,7 +252,7 @@ typedef enum {
     LSM_PP_OD                       = (1 << 4),
     LSM_SIM                         = (1 << 3),
     LSM_IF_INC                      = (1 << 2),
-    LSM_BOOT                        = (1 << 0)
+    LSM_SW_RESET                    = (1 << 0)
 } lsm6_ctrl3_c;
 
 typedef enum {
@@ -296,11 +303,13 @@ typedef enum {
     LSM_HPM_G_1_05                  = (0b11 << 4),
 } lsm6_ctrl7_g;
 
+typedef enum {
+    LSM_TIMESTAMP_EN                = (1 << 5)
+} lsm6_ctrl10_c;
 
 
     // LSM_CTRL8_XL            = 0x17,
     // LSM_CTRL9_XL            = 0x18,
-    // LSM_CTRL10_XL           = 0x19,
     // LSM_ALL_INT_SRC         = 0x1A,
     // LSM_TAP_SRC             = 0x1B,
     // LSM_D6D_SRC             = 0x1D,
@@ -326,5 +335,6 @@ typedef enum {
     // LSM_INTERNAL_FREQ_FINE  = 0x63,
 
     // LSM_FIFO_DATA_OUT_TAG   = 0x78
+
 
 #endif // LSM6DSO32_CONSTANTS_H

@@ -47,9 +47,12 @@ class LSM6DSO32 {
 
     bool startAccel(lsm6_accel_range range, lsm6_srate rate, bool lpf2);
     bool startGyro(lsm6_gyro_range range, lsm6_srate rate);
+    bool startTimestamp();
+    bool setInt1(lsm6_int1_ctrl mode);
+    bool setInt2(lsm6_int2_ctrl mode);
     VectorF getAccel();
     VectorF getGyro();
-
+    uint32_t getTimestamp();
   private:
     i2c_addr_t address;
     TwoWire* i2cptr;

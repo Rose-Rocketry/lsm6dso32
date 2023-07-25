@@ -49,6 +49,8 @@ class QuatF/*: public Printable*/ {
 	QuatF(float wval, float xval, float yval, float zval);
 	QuatF(const VectorF& lv);
 	QuatF();
+
+	static QuatF fromAngleAxis(const VectorF& aa);
 	
 //	size_t printTo(Print& to) const;
 	
