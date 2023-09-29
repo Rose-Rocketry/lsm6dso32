@@ -19,7 +19,7 @@ class QuatF; // pre-declare so we can use it in VectorF
 
 // using the Printable interface here burns an additional 2 bytes to point to a VFtable;
 // whether that is worth the convenience is an open quesiton; looking into better ways
-class VectorF/*: public Printable*/ {
+class __attribute__((packed)) VectorF/*: public Printable*/ {
   public:
 	float x, y, z;
 	VectorF(float xval, float yval, float zval);
@@ -43,7 +43,7 @@ class VectorF/*: public Printable*/ {
 	VectorF rotate(const QuatF &q) const;
 };
 
-class QuatF/*: public Printable*/ {
+class __attribute__((packed)) QuatF/*: public Printable*/ {
   public:
 	float w, x, y, z;
 	QuatF(float wval, float xval, float yval, float zval);
