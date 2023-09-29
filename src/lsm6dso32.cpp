@@ -86,11 +86,12 @@ uint32_t LSM6DSO32::getTimestamp() {
 
 bool setAccelCalib(VectorF zeroMeas) {
     float limit = max({zeroMeas.x, zeroMeas.y, zeroMeas.z});
+    return true;
 }
 
 bool setGyroCalib(VectorF zeroMeas) {
     float limit = max({zeroMeas.x, zeroMeas.y, zeroMeas.z});
-
+    return true;
 }
 
 // private functions
