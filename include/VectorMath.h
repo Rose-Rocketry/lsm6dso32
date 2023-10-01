@@ -35,6 +35,7 @@ class __attribute__((packed)) VectorF/*: public Printable*/ {
 	inline VectorF operator - () const { return negate(); }
 	VectorF add(VectorF other) const;
 	inline VectorF operator + (VectorF other) const { return add(other); }
+	inline VectorF operator - (VectorF other) const { return add(-other); }
 	VectorF scale(float s) const;
 	inline VectorF operator * (float s) const { return scale(s); }
 	inline VectorF normalize() const { return scale(1/mag()); }
