@@ -18,7 +18,7 @@ bool LSM6DSO32::begin(TwoWire* i2c, i2c_addr_t addr) {
         address = oldaddr;
         return false;
     }
-    return true;
+    return writeRegister(LSM_IF_INC | LSM_SW_RESET, LSM_CTRL3_C);
 }
 
 bool LSM6DSO32::startAccel(lsm6_accel_range range, lsm6_srate rate, bool lpf2) {
