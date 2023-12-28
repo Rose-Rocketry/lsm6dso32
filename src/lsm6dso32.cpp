@@ -59,10 +59,35 @@ bool LSM6DSO32::startTimestamp() {
     return writeRegister(LSM_TIMESTAMP_EN, LSM_CTRL10_C);    
 }
 
+bool LSM6DSO32::startFIFO(lsm6_fifo_mode mode, lsm6_srate accel_rate,
+                          lsm6_srate gyro_rate, lsm6_fifo_timestamp ts_rate,
+                          lsm6_fifo_temprate temp_rate, bool odrchange,
+                          int16_t watermark, bool stop_on_wtm,
+                          bool en_compression, lsm6_fifo_uncompressed uncompress_rate) {
+    char fifoctrl[4] = {
+        watermark & 0xFF,
+
+        (stop_on_wtm ? LSM_STOP_ON_WTM : 0)
+        | (en_compression ? LSM_FIFO_COMPR_RT_EN : 0)
+        | (odrchange ? LSM_ODRCHG_EN : 0)
+        | uncompress_rate
+        | (watermark >> 8) & 1,
+
+        gyro_rate | (accel_rate >> 4), // this is a little janky but mostly works
+
+        ts_rate | temp_rate | mode
+    };
+    // TODO: we should be able to write these in one batch
+    return writeRegister(fifoctrl[0], LSM_FIFO_CTRL1)
+        && writeRegister(fifoctrl[1], LSM_FIFO_CTRL2)
+        && writeRegister(fifoctrl[2], LSM_FIFO_CTRL3)
+        && writeRegister(fifoctrl[3], LSM_FIFO_CTRL4);
+}
 
 bool LSM6DSO32::setInt1(lsm6_int1_ctrl mode) {
     return writeRegister(mode, LSM_INT1_CTRL);
 }
+
 bool LSM6DSO32::setInt2(lsm6_int2_ctrl mode) {
     return writeRegister(mode, LSM_INT2_CTRL);
 }

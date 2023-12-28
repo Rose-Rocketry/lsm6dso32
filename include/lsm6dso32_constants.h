@@ -300,41 +300,33 @@ typedef enum {
     LSM_HPM_G_0_016                 = (0b00 << 4),
     LSM_HPM_G_0_065                 = (0b01 << 4),
     LSM_HPM_G_0_260                 = (0b10 << 4),
-    LSM_HPM_G_1_05                  = (0b11 << 4),
+    LSM_HPM_G_1_05                  = (0b11 << 4)
 } lsm6_ctrl7_g;
 
 typedef enum {
     LSM_TIMESTAMP_EN                = (1 << 5)
 } lsm6_ctrl10_c;
 
-
-    // LSM_CTRL8_XL            = 0x17,
-    // LSM_CTRL9_XL            = 0x18,
-    // LSM_ALL_INT_SRC         = 0x1A,
-    // LSM_TAP_SRC             = 0x1B,
-    // LSM_D6D_SRC             = 0x1D,
-    // LSM_STATUS_REG          = 0x1E,
-
-    // LSM_EMB_FUNC_STATUS_MAINPAGE    = 0x35,
-
-    // LSM_STATUS_MASTER_MAINPAGE      = 0x39,
-    // LSM_FIFO_STATUS2        = 0x3B,
-
-    // LSM_TAP_CFG0            = 0x56,
-    // LSM_TAP_CFG1            = 0x57,
-    // LSM_TAP_CFG2            = 0x58,
-    // LSM_TAP_THS_6D          = 0x59,
-    // LSM_INT_DUR2            = 0x5A,
-    // LSM_WAKE_UP_THS         = 0x5B,
-    // LSM_WAKE_UP_DUR         = 0x5C,
-    // LSM_FREE_FALL           = 0x5D,
-    // LSM_MD1_CFG             = 0x5E,
-    // LSM_MD2_CFG             = 0x5F,
-
-    // LSM_I3C_BUS_AVB         = 0x62,
-    // LSM_INTERNAL_FREQ_FINE  = 0x63,
-
-    // LSM_FIFO_DATA_OUT_TAG   = 0x78
-
+typedef enum {
+    LSM_FIFO_TAG_GYRO_NC            = 0x01,
+    LSM_FIFO_TAG_ACCEL_NC           = 0x02,
+    LSM_FIFO_TAG_TEMP               = 0x03,
+    LSM_FIFO_TAG_TIMESTAMP          = 0x04,
+    LSM_FIFO_TAG_CFG_CHANGE         = 0x05,
+    LSM_FIFO_TAG_ACCEL_NC_T_2       = 0x06,
+    LSM_FIFO_TAG_ACCEL_NC_T_1       = 0x07,
+    LSM_FIFO_TAG_ACCEL_2XC          = 0x08,
+    LSM_FIFO_TAG_ACCEL_3XC          = 0x09,
+    LSM_FIFO_TAG_GYRO_NC_T_2        = 0x0A,
+    LSM_FIFO_TAG_GYRO_NC_T_1        = 0x0B,
+    LSM_FIFO_TAG_GYRO_2XC           = 0x0C,
+    LSM_FIFO_TAG_GYRO_3XC           = 0x0D,
+    LSM_FIFO_TAG_HUB_S0             = 0x0E,
+    LSM_FIFO_TAG_HUB_S1             = 0x0F,
+    LSM_FIFO_TAG_HUB_S2             = 0x10,
+    LSM_FIFO_TAG_HUB_S3             = 0x11,
+    LSM_FIFO_TAG_STEP               = 0x12,
+    LSM_FIFO_TAG_HUB_NACK           = 0x19
+} lsm6_fifo_tag;
 
 #endif // LSM6DSO32_CONSTANTS_H
