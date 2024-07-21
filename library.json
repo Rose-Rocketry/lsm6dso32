@@ -1,0 +1,19 @@
+{
+    "name": "LSM6DSO32",
+    "version": "1.0.0",
+    "description": "A custom library for the ST LSM6DSO32 accelerometer/gyro.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Rose-Rocketry/lsm6dso32.git"
+    },
+    "authors": {
+        "name": "Ben Graham",
+        "url": "lithosphererocketry.github.io"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "https://github.com/Rose-Rocketry/VectorMath.git": "^1.0.0"
+    },
+    "frameworks": "arduino",
+    "platforms": "*"
+}
